@@ -16,9 +16,9 @@ Built with Swift, AppKit, and SwiftUI. Zero third-party dependencies.
 - **Mini Player** — floating always-on-top player that follows across desktop spaces
 - **Sidebar navigation** — browse by author, genre, year, smart collection, or status
 
-## Screenshots
+## Screenshot
 
-<!-- Add screenshots here -->
+![Shelf — audiobook library view](shelf-screenshot.png)
 
 ## Install
 
