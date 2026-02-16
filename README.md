@@ -1,8 +1,17 @@
-# Shelf
+<p align="center">
+  <img src="assets/app-icon.png" width="128" height="128" alt="Shelf app icon">
+</p>
 
-A native macOS audiobook player. Browse, listen, bookmark, and pick up where you left off.
+<h1 align="center">Shelf</h1>
 
-Built with Swift, AppKit, and SwiftUI. Zero third-party dependencies.
+<p align="center">A native macOS audiobook player.<br>
+Browse, listen, bookmark, and pick up where you left off.</p>
+
+<p align="center">macOS 14+ · Apple Silicon & Intel</p>
+
+<p align="center">
+  <img src="shelf-screenshot.png" width="600" alt="Shelf — audiobook library view">
+</p>
 
 ## Features
 
@@ -15,10 +24,6 @@ Built with Swift, AppKit, and SwiftUI. Zero third-party dependencies.
 - **Import/Export** — backup and restore your progress and bookmarks as a JSON file
 - **Mini Player** — floating always-on-top player that follows across desktop spaces
 - **Sidebar navigation** — browse by author, genre, year, smart collection, or status
-
-## Screenshot
-
-![Shelf — audiobook library view](shelf-screenshot.png)
 
 ## Install
 
