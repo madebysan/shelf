@@ -22,15 +22,15 @@ Built with Swift, AppKit, and SwiftUI. Zero third-party dependencies.
 
 ## Install
 
-Download `Shelf.dmg` from the [latest release](https://github.com/madebysan/mac-shelf-audiobook-player/releases/latest), open it, and drag Shelf to your Applications folder.
+Download `Shelf.dmg` from the [latest release](https://github.com/madebysan/shelf/releases/latest), open it, and drag Shelf to your Applications folder.
 
 ## Build from source
 
 Requires Xcode 15+ and macOS 14 (Sonoma) or later.
 
 ```bash
-git clone https://github.com/madebysan/mac-shelf-audiobook-player.git
-cd mac-shelf-audiobook-player
+git clone https://github.com/madebysan/shelf.git
+cd shelf
 open Shelf.xcodeproj
 ```
 
