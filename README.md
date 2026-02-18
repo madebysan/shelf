@@ -4,7 +4,7 @@
 
 <h1 align="center">Shelf</h1>
 
-<p align="center">A native macOS audiobook player.<br>
+<p align="center">A native macOS audio player for audiobooks, lectures, and long-form listening.<br>
 Browse, listen, bookmark, and pick up where you left off.</p>
 
 <p align="center">macOS 14+ · Apple Silicon & Intel</p>
@@ -15,8 +15,8 @@ Browse, listen, bookmark, and pick up where you left off.</p>
 
 ## Features
 
-- **Multiple libraries** — add as many audiobook folders as you want, each with independent books and playback state. Switch between them from the sidebar dropdown or manage them all from a single sheet.
-- **Library management** — point Shelf at a folder of audiobooks and it scans for m4b, m4a, and mp3 files, extracting metadata and cover art automatically
+- **Multiple libraries** — add as many folders as you want, each with independent content and playback state. Switch between them from the sidebar dropdown or manage them all from a single sheet.
+- **Library management** — point Shelf at any folder and it scans for m4b, m4a, and mp3 files, extracting metadata and cover art automatically
 - **Multiple view modes** — browse your library as a grid, large grid, or sortable list
 - **Playback** — play/pause, skip forward/back 30s, adjustable speed (0.5x-2x), chapter navigation, and media key support
 - **Bookmarks** — mark important moments with a name and optional note, jump back to them anytime
