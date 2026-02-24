@@ -30,7 +30,7 @@ struct SidebarView: View {
 
             // Library — always visible
             Section {
-                sidebarRow("All Books", icon: "books.vertical", count: libraryVM.books.count)
+                sidebarRow("All Books", icon: "books.vertical", count: libraryVM.books.count - libraryVM.hiddenCount)
                     .tag(LibraryViewModel.SidebarCategory.allBooks)
 
                 sidebarRow("In Progress", icon: "book", count: libraryVM.inProgressCount)
@@ -38,6 +38,11 @@ struct SidebarView: View {
 
                 sidebarRow("Completed", icon: "checkmark.circle", count: libraryVM.completedCount)
                     .tag(LibraryViewModel.SidebarCategory.completed)
+
+                if libraryVM.hiddenCount > 0 {
+                    sidebarRow("Hidden", icon: "eye.slash", count: libraryVM.hiddenCount)
+                        .tag(LibraryViewModel.SidebarCategory.hidden)
+                }
             } header: {
                 Text("Library")
             }

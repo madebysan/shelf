@@ -81,6 +81,7 @@ struct NowPlayingBar: View {
                 .buttonStyle(.plain)
                 .help("Skip Forward 30s")
             }
+            .contentShape(Rectangle())
 
             // Mini player toggle
             Button { miniPlayerController.toggle(playerVM: playerVM) } label: {

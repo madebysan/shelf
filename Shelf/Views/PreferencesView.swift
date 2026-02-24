@@ -56,6 +56,17 @@ struct PreferencesView: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
 
+                HStack {
+                    Button("Look Up Missing Covers") {
+                        Task { await libraryVM.lookUpMissingCovers() }
+                    }
+                    .disabled(libraryVM.isScanning || libraryVM.isLoadingMetadata || libraryVM.isLookingUpCovers || libraryVM.activeLibrary == nil)
+                }
+
+                Text("Searches Open Library for cover art using book titles. Does not download audio files.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+
                 if libraryVM.isScanning {
                     ProgressView()
                         .controlSize(.small)
@@ -66,6 +77,16 @@ struct PreferencesView: View {
                         ProgressView(value: Double(libraryVM.metadataProgress), total: Double(max(libraryVM.metadataTotal, 1)))
                             .controlSize(.small)
                         Text("Extracting metadata: \(libraryVM.metadataProgress) / \(libraryVM.metadataTotal)")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                }
+
+                if libraryVM.isLookingUpCovers {
+                    VStack(alignment: .leading, spacing: 4) {
+                        ProgressView(value: Double(libraryVM.coverLookupProgress), total: Double(max(libraryVM.coverLookupTotal, 1)))
+                            .controlSize(.small)
+                        Text("Finding covers: \(libraryVM.coverLookupProgress) / \(libraryVM.coverLookupTotal)")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }

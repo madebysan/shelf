@@ -20,16 +20,20 @@ struct ContentView: View {
                 if playerVM.currentBook != nil {
                     Divider()
                     NowPlayingBar(showPlayer: $showPlayer)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
             }
         }
         .sheet(isPresented: $showPlayer) {
             PlayerView()
                 .environmentObject(playerVM)
-                .frame(minWidth: 740, minHeight: 400)
+                .frame(minWidth: 500, idealWidth: 600, minHeight: 520, idealHeight: 600)
         }
         .onAppear {
             setupSpacebarMonitor()
+        }
+        .onChange(of: libraryVM.filteredBooks.count) { _, newCount in
+            NSApp.mainWindow?.subtitle = newCount > 0 ? "\(newCount) books" : ""
         }
         .onDisappear {
             if let monitor = keyMonitor {

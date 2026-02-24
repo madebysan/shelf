@@ -26,6 +26,7 @@ struct BookmarkListView: View {
                     .foregroundColor(.secondary)
                     .padding(.horizontal, 4)
                     .padding(.vertical, 8)
+                    .emptyStateAppear()
             } else {
                 List {
                     ForEach(playerVM.bookmarks, id: \.id) { bookmark in

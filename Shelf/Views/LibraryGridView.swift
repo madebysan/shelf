@@ -30,6 +30,11 @@ struct LibraryGridView: View {
                 metadataProgressBar
             }
 
+            // Cover art lookup progress bar (shown during Open Library search)
+            if libraryVM.isLookingUpCovers {
+                coverLookupProgressBar
+            }
+
             // Content
             if libraryVM.isScanning {
                 Spacer()
@@ -84,6 +89,7 @@ struct LibraryGridView: View {
                 }
             }
             .padding(8)
+            .contentShape(Rectangle())
             .background(.quaternary)
             .cornerRadius(8)
             .frame(maxWidth: 300)
@@ -94,6 +100,15 @@ struct LibraryGridView: View {
             Text("\(libraryVM.filteredBooks.count) books")
                 .foregroundColor(.secondary)
                 .font(.caption)
+
+            // Discover button
+            Button {
+                playerVM.discoverRandomBook()
+            } label: {
+                Image(systemName: "shuffle")
+            }
+            .help("Discover — play a random book")
+            .disabled(libraryVM.books.isEmpty)
 
             // View mode picker
             Picker("View", selection: $libraryVM.viewMode) {
@@ -133,12 +148,15 @@ struct LibraryGridView: View {
     private func gridView(size: BookCardSize) -> some View {
         ScrollView {
             LazyVGrid(columns: gridColumns, spacing: size == .large ? 28 : 24) {
-                ForEach(libraryVM.filteredBooks, id: \.objectID) { book in
+                ForEach(Array(libraryVM.filteredBooks.enumerated()), id: \.element.objectID) { index, book in
                     BookCardView(book: book, size: size) {
                         playerVM.openBook(book)
                     }
+                    .staggeredAppear(index: index)
+                    .transition(.opacity)
                 }
             }
+            .animation(AppAnimation.viewSwitch, value: libraryVM.filteredBooks.count)
             .padding(20)
         }
     }
@@ -177,6 +195,12 @@ struct LibraryGridView: View {
                     .fontWeight(.medium)
                     .foregroundColor(.secondary)
                     .frame(width: 90, alignment: .trailing)
+
+                Text("Rating")
+                    .font(.caption)
+                    .fontWeight(.medium)
+                    .foregroundColor(.secondary)
+                    .frame(width: 60, alignment: .trailing)
             }
             .fixedSize(horizontal: false, vertical: true)
             .padding(.horizontal, 28)
@@ -188,15 +212,18 @@ struct LibraryGridView: View {
             // Rows
             ScrollView {
                 LazyVStack(spacing: 0) {
-                    ForEach(libraryVM.filteredBooks, id: \.objectID) { book in
+                    ForEach(Array(libraryVM.filteredBooks.enumerated()), id: \.element.objectID) { index, book in
                         BookListRow(
                             book: book,
                             onTap: { playerVM.openBook(book) },
                             isCurrentlyPlaying: playerVM.currentBook?.objectID == book.objectID
                         )
+                        .staggeredAppear(index: index)
+                        .transition(.opacity)
                         Divider().padding(.leading, 64)
                     }
                 }
+                .animation(AppAnimation.viewSwitch, value: libraryVM.filteredBooks.count)
                 .padding(.horizontal, 20)
                 .padding(.vertical, 4)
             }
@@ -232,6 +259,34 @@ struct LibraryGridView: View {
         return Double(libraryVM.metadataProgress) / Double(libraryVM.metadataTotal) * 100
     }
 
+    // MARK: - Cover Lookup Progress Bar
+
+    /// Progress bar shown while searching Open Library for missing cover art.
+    private var coverLookupProgressBar: some View {
+        VStack(spacing: 4) {
+            HStack {
+                Text("Finding covers: \(libraryVM.coverLookupProgress) of \(libraryVM.coverLookupTotal)")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                Spacer()
+                Text("\(Int(coverLookupPercentage))%")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            ProgressView(value: coverLookupPercentage, total: 100)
+                .progressViewStyle(.linear)
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 6)
+        .background(Color.primary.opacity(0.03))
+    }
+
+    /// Percentage of cover lookup complete
+    private var coverLookupPercentage: Double {
+        guard libraryVM.coverLookupTotal > 0 else { return 0 }
+        return Double(libraryVM.coverLookupProgress) / Double(libraryVM.coverLookupTotal) * 100
+    }
+
     // MARK: - Empty State
 
     @ViewBuilder
@@ -261,5 +316,6 @@ struct LibraryGridView: View {
                     .foregroundStyle(.tertiary)
             }
         }
+        .emptyStateAppear()
     }
 }

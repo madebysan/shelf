@@ -19,15 +19,43 @@ struct PlayerView: View {
                 .padding()
             }
 
-            // Main content
-            HStack(alignment: .top, spacing: 30) {
-                // Left: Cover art + info
-                VStack(spacing: 16) {
+            // Discover mode banner
+            if playerVM.isDiscoverMode {
+                HStack {
+                    Image(systemName: "shuffle")
+                        .font(.caption)
+                    Text("Discover Mode")
+                        .font(.caption)
+                        .fontWeight(.medium)
+                    Text("-- progress not saved")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Spacer()
+                    Button("Next") {
+                        playerVM.discoverRandomBook()
+                    }
+                    .font(.caption)
+                    .fontWeight(.medium)
+                    Button("Exit") {
+                        playerVM.exitDiscoverMode()
+                    }
+                    .font(.caption)
+                }
+                .padding(.horizontal)
+                .padding(.vertical, 6)
+                .background(Color.accentColor.opacity(0.1))
+                .transition(.slideAndFade)
+            }
+
+            // Main content — vertical layout
+            ScrollView {
+                VStack(spacing: 20) {
+                    // Cover art + info
                     if let book = playerVM.currentBook {
                         Image(nsImage: book.coverImage)
                             .resizable()
                             .aspectRatio(1, contentMode: .fill)
-                            .frame(width: 240, height: 240)
+                            .frame(width: 200, height: 200)
                             .clipped()
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                             .shadow(color: .black.opacity(0.2), radius: 8, y: 4)
@@ -42,6 +70,7 @@ struct PlayerView: View {
                             Text(book.displayAuthor)
                                 .font(.body)
                                 .foregroundColor(.secondary)
+                                .lineLimit(1)
 
                             if let chapter = playerVM.currentChapterName {
                                 Text(chapter)
@@ -51,11 +80,7 @@ struct PlayerView: View {
                             }
                         }
                     }
-                }
-                .frame(maxWidth: 240)
 
-                // Right: Controls + chapter list
-                VStack(spacing: 20) {
                     // Scrubber
                     VStack(spacing: 4) {
                         Slider(
@@ -71,12 +96,12 @@ struct PlayerView: View {
                                 .font(.system(size: 11, design: .monospaced))
                                 .foregroundColor(.secondary)
                             Spacer()
-                            // Remaining time
                             Text("-" + Book.formatScrubberTime(max(playerVM.audioService.duration - playerVM.audioService.currentTime, 0)))
                                 .font(.system(size: 11, design: .monospaced))
                                 .foregroundColor(.secondary)
                         }
                     }
+                    .frame(maxWidth: 500)
 
                     // Transport controls
                     HStack(spacing: 28) {
@@ -103,8 +128,8 @@ struct PlayerView: View {
                                 .background(.quaternary)
                                 .cornerRadius(6)
                         }
-
-                        Spacer()
+                        .menuStyle(.borderlessButton)
+                        .fixedSize()
 
                         Button { playerVM.audioService.skipBackward() } label: {
                             Image(systemName: "gobackward.30")
@@ -124,24 +149,68 @@ struct PlayerView: View {
                         }
                         .buttonStyle(.plain)
 
-                        Spacer()
+                        // Sleep timer
+                        Menu {
+                            if playerVM.sleepTimerActive {
+                                Button {
+                                    playerVM.cancelSleepTimer()
+                                } label: {
+                                    Label("Cancel Timer", systemImage: "xmark")
+                                }
+                            } else {
+                                ForEach(PlayerViewModel.sleepTimerPresets, id: \.self) { minutes in
+                                    Button {
+                                        playerVM.startSleepTimer(minutes: minutes)
+                                    } label: {
+                                        Text("\(minutes) minutes")
+                                    }
+                                }
+                                if !playerVM.chapters.isEmpty {
+                                    Divider()
+                                    Button {
+                                        playerVM.startSleepTimerEndOfChapter()
+                                    } label: {
+                                        Text("End of Chapter")
+                                    }
+                                }
+                            }
+                        } label: {
+                            if playerVM.sleepTimerActive {
+                                if playerVM.sleepTimerEndOfChapter {
+                                    Text("EoC")
+                                        .font(.caption)
+                                        .fontWeight(.medium)
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 4)
+                                        .background(Color.accentColor.opacity(0.2))
+                                        .cornerRadius(6)
+                                } else {
+                                    Text(playerVM.sleepTimerRemainingFormatted)
+                                        .font(.caption)
+                                        .fontWeight(.medium)
+                                        .monospacedDigit()
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 4)
+                                        .background(Color.accentColor.opacity(0.2))
+                                        .cornerRadius(6)
+                                }
+                            } else {
+                                Image(systemName: "moon.zzz")
+                                    .font(.title3)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .menuStyle(.borderlessButton)
+                        .fixedSize()
+                        .help(playerVM.sleepTimerActive ? "Sleep timer active" : "Sleep Timer")
 
                         // Bookmark button
                         Button {
-                            playerVM.showAddBookmark = true
+                            withAnimation(AppAnimation.expand) {
+                                playerVM.showBookmarkList.toggle()
+                            }
                         } label: {
-                            Image(systemName: "bookmark.fill")
-                                .font(.title3)
-                                .foregroundColor(.secondary)
-                        }
-                        .buttonStyle(.plain)
-                        .help("Add Bookmark")
-
-                        // Bookmark list toggle
-                        Button {
-                            playerVM.showBookmarkList.toggle()
-                        } label: {
-                            Image(systemName: "bookmark")
+                            Image(systemName: playerVM.showBookmarkList ? "bookmark.fill" : "bookmark")
                                 .font(.title3)
                                 .foregroundColor(playerVM.showBookmarkList ? .accentColor : .secondary)
                         }
@@ -151,7 +220,9 @@ struct PlayerView: View {
                         // Chapter toggle (only if chapters exist)
                         if !playerVM.chapters.isEmpty {
                             Button {
-                                playerVM.showChapterList.toggle()
+                                withAnimation(AppAnimation.expand) {
+                                    playerVM.showChapterList.toggle()
+                                }
                             } label: {
                                 Image(systemName: "list.bullet")
                                     .font(.title3)
@@ -159,28 +230,27 @@ struct PlayerView: View {
                             }
                             .buttonStyle(.plain)
                             .help("Chapters")
-                        } else {
-                            // Spacer for alignment
-                            Color.clear.frame(width: 20)
                         }
                     }
 
                     // Bookmark list (expandable)
                     if playerVM.showBookmarkList {
                         BookmarkListView()
+                            .frame(maxWidth: 500)
+                            .transition(.expandSection)
                     }
 
                     // Chapter list (expandable)
                     if playerVM.showChapterList && !playerVM.chapters.isEmpty {
                         ChapterListView()
+                            .frame(maxWidth: 500)
+                            .transition(.expandSection)
                     }
-
-                    Spacer()
                 }
                 .frame(maxWidth: .infinity)
+                .padding(.horizontal, 30)
+                .padding(.bottom, 20)
             }
-            .padding(.horizontal, 30)
-            .padding(.bottom, 20)
         }
         .sheet(isPresented: $playerVM.showAddBookmark) {
             AddBookmarkSheet()

@@ -187,9 +187,12 @@ class AudioPlayerService: ObservableObject {
 
     // MARK: - Position Persistence
 
+    /// When true, playback position changes won't be saved (used by discover mode)
+    var skipPositionSave: Bool = false
+
     /// Saves the current playback position to Core Data
     func savePosition() {
-        guard let book = currentBook else { return }
+        guard !skipPositionSave, let book = currentBook else { return }
         book.playbackPosition = currentTime
         PersistenceController.shared.save()
     }

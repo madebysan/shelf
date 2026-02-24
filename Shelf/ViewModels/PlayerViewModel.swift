@@ -21,7 +21,21 @@ class PlayerViewModel: ObservableObject {
     @Published var downloadingBookID: NSManagedObjectID?
     @Published var downloadProgress: Double = 0
 
+    // Sleep timer
+    @Published var sleepTimerActive: Bool = false
+    @Published var sleepTimerRemaining: TimeInterval = 0
+    @Published var sleepTimerEndOfChapter: Bool = false
+    private var sleepTimer: Timer?
+
+    /// Preset durations for the sleep timer (in minutes)
+    static let sleepTimerPresets: [Int] = [15, 30, 45, 60]
+
+    /// Discover mode — plays random books without saving progress
+    @Published var isDiscoverMode: Bool = false
+
     let audioService: AudioPlayerService
+    /// Reference to the library for discover mode
+    weak var libraryVM: LibraryViewModel?
     private var cancellables = Set<AnyCancellable>()
     private var downloadTask: Task<Void, Never>?
 
@@ -36,6 +50,7 @@ class PlayerViewModel: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.objectWillChange.send()
+                self?.checkEndOfChapterSleepTimer()
             }
             .store(in: &cancellables)
     }
@@ -47,6 +62,12 @@ class PlayerViewModel: ObservableObject {
     func openBook(_ book: Book) {
         // If already downloading this book, ignore duplicate taps
         if downloadingBookID == book.objectID { return }
+
+        // Exit discover mode if opening a book normally
+        if isDiscoverMode {
+            isDiscoverMode = false
+            audioService.skipPositionSave = false
+        }
 
         currentBook = book
 
@@ -211,6 +232,112 @@ class PlayerViewModel: ObservableObject {
             return "\(Int(rate))x"
         }
         return String(format: "%.2gx", rate)
+    }
+
+    // MARK: - Sleep Timer
+
+    /// Starts a sleep timer that pauses playback after the given number of minutes
+    func startSleepTimer(minutes: Int) {
+        cancelSleepTimer()
+        sleepTimerEndOfChapter = false
+        sleepTimerRemaining = TimeInterval(minutes * 60)
+        sleepTimerActive = true
+
+        sleepTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+            Task { @MainActor in
+                guard let self = self else { return }
+                self.sleepTimerRemaining -= 1
+                if self.sleepTimerRemaining <= 0 {
+                    self.audioService.pause()
+                    self.cancelSleepTimer()
+                }
+            }
+        }
+    }
+
+    /// Starts a sleep timer that pauses at the end of the current chapter
+    func startSleepTimerEndOfChapter() {
+        cancelSleepTimer()
+        sleepTimerEndOfChapter = true
+        sleepTimerActive = true
+    }
+
+    /// Cancels any active sleep timer
+    func cancelSleepTimer() {
+        sleepTimer?.invalidate()
+        sleepTimer = nil
+        sleepTimerActive = false
+        sleepTimerRemaining = 0
+        sleepTimerEndOfChapter = false
+    }
+
+    /// Formatted remaining time for display (e.g. "12:34")
+    var sleepTimerRemainingFormatted: String {
+        let mins = Int(sleepTimerRemaining) / 60
+        let secs = Int(sleepTimerRemaining) % 60
+        return String(format: "%d:%02d", mins, secs)
+    }
+
+    /// Checks if playback has crossed into a new chapter — pauses if end-of-chapter timer is active
+    private func checkEndOfChapterSleepTimer() {
+        guard sleepTimerEndOfChapter, !chapters.isEmpty, audioService.isPlaying else { return }
+        let time = audioService.currentTime
+        let currentIdx = chapters.lastIndex(where: { $0.startTime <= time }) ?? 0
+
+        // If the chapter changed since we set the timer, pause
+        if currentIdx != currentChapterIndex && currentIdx > currentChapterIndex {
+            // We've moved to a new chapter — pause at its start
+            audioService.pause()
+            audioService.seek(to: chapters[currentIdx].startTime)
+            cancelSleepTimer()
+        }
+    }
+
+    // MARK: - Discover Mode
+
+    /// Picks a random non-hidden book and plays from a random position (10-80% in)
+    func discoverRandomBook() {
+        guard let libraryVM = libraryVM else { return }
+        let eligible = libraryVM.books.filter { !$0.isHidden }
+        guard !eligible.isEmpty else { return }
+
+        let randomBook = eligible.randomElement()!
+        isDiscoverMode = true
+        audioService.skipPositionSave = true
+        currentBook = randomBook
+
+        // Load chapters if the book has them
+        if randomBook.hasChapters, let path = randomBook.filePath {
+            Task {
+                let url = URL(fileURLWithPath: path)
+                chapters = await MetadataExtractor.extractChapters(from: url)
+            }
+        } else {
+            chapters = []
+        }
+
+        loadBookmarks(for: randomBook)
+        audioService.play(book: randomBook)
+
+        // Seek to a random position once duration is known
+        Task {
+            // Wait briefly for duration to load
+            try? await Task.sleep(for: .milliseconds(500))
+            if audioService.duration > 0 {
+                let minPos = audioService.duration * 0.1
+                let maxPos = audioService.duration * 0.8
+                let randomPos = Double.random(in: minPos...maxPos)
+                audioService.seek(to: randomPos)
+            }
+        }
+    }
+
+    /// Exits discover mode, stops playback, restores normal behavior
+    func exitDiscoverMode() {
+        isDiscoverMode = false
+        audioService.skipPositionSave = false
+        audioService.stop()
+        currentBook = nil
     }
 
     // MARK: - Bookmarks

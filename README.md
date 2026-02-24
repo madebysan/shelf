@@ -108,6 +108,10 @@ Shelf/
     MiniPlayerController.swift  # Floating NSPanel management
     PersistenceController.swift # Core Data stack
     ProgressExporter.swift      # JSON import/export
+  Utilities/
+    AppAnimation.swift          # Named animation curves (spring, ease)
+    AppTransitions.swift        # Reusable composed transitions
+    ViewModifiers.swift         # StaggeredAppear, EmptyStateAppear modifiers
 ```
 
 ## License

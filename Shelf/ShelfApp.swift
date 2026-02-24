@@ -22,6 +22,9 @@ struct ShelfApp: App {
                 .environmentObject(miniPlayerController)
                 .frame(minWidth: 800, minHeight: 600)
                 .onAppear {
+                    // Wire up cross-references
+                    playerVM.libraryVM = libraryVM
+
                     // On first launch (no libraries), prompt to add one
                     if libraryVM.libraries.isEmpty {
                         libraryVM.addLibrary()

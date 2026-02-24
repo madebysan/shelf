@@ -35,6 +35,10 @@
 		A10000010000000000000107 /* ManageLibrariesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000107 /* ManageLibrariesView.swift */; };
 		A10000010000000000000108 /* Library+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000108 /* Library+Extensions.swift */; };
 		A10000010000000000000109 /* FileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000109 /* FileUtils.swift */; };
+		A10000010000000000000110 /* CoverArtService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000110 /* CoverArtService.swift */; };
+		A10000010000000000000201 /* AppAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000201 /* AppAnimation.swift */; };
+		A10000010000000000000202 /* AppTransitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000202 /* AppTransitions.swift */; };
+		A10000010000000000000203 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000203 /* ViewModifiers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +73,10 @@
 		A20000010000000000000107 /* ManageLibrariesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageLibrariesView.swift; sourceTree = "<group>"; };
 		A20000010000000000000108 /* Library+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Extensions.swift"; sourceTree = "<group>"; };
 		A20000010000000000000109 /* FileUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUtils.swift; sourceTree = "<group>"; };
+		A20000010000000000000110 /* CoverArtService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverArtService.swift; sourceTree = "<group>"; };
+		A20000010000000000000201 /* AppAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAnimation.swift; sourceTree = "<group>"; };
+		A20000010000000000000202 /* AppTransitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTransitions.swift; sourceTree = "<group>"; };
+		A20000010000000000000203 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +109,7 @@
 				A40000010000000000000004 /* Views */,
 				A40000010000000000000005 /* ViewModels */,
 				A40000010000000000000006 /* Services */,
+				A40000010000000000000008 /* Utilities */,
 				A20000010000000000000003 /* Assets.xcassets */,
 			);
 			path = Shelf;
@@ -155,8 +164,19 @@
 				A20000010000000000000104 /* ProgressExporter.swift */,
 				A20000010000000000000105 /* MiniPlayerController.swift */,
 				A20000010000000000000109 /* FileUtils.swift */,
+				A20000010000000000000110 /* CoverArtService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		A40000010000000000000008 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000201 /* AppAnimation.swift */,
+				A20000010000000000000202 /* AppTransitions.swift */,
+				A20000010000000000000203 /* ViewModifiers.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		A40000010000000000000007 /* Products */ = {
@@ -263,6 +283,10 @@
 				A10000010000000000000107 /* ManageLibrariesView.swift in Sources */,
 				A10000010000000000000108 /* Library+Extensions.swift in Sources */,
 				A10000010000000000000109 /* FileUtils.swift in Sources */,
+				A10000010000000000000110 /* CoverArtService.swift in Sources */,
+				A10000010000000000000201 /* AppAnimation.swift in Sources */,
+				A10000010000000000000202 /* AppTransitions.swift in Sources */,
+				A10000010000000000000203 /* ViewModifiers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

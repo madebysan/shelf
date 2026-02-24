@@ -22,8 +22,16 @@ class LibraryViewModel: ObservableObject {
     @Published var metadataProgress: Int = 0
     @Published var metadataTotal: Int = 0
 
+    /// Background cover art lookup progress (Pass 3)
+    @Published var isLookingUpCovers: Bool = false
+    @Published var coverLookupProgress: Int = 0
+    @Published var coverLookupTotal: Int = 0
+
     /// Tracks the background metadata task so it can be cancelled on re-scan
     private var metadataTask: Task<Void, Never>?
+
+    /// Tracks the background cover lookup task so it can be cancelled on re-scan
+    private var coverLookupTask: Task<Void, Never>?
 
     /// All libraries the user has added
     @Published var libraries: [Library] = []
@@ -39,6 +47,7 @@ class LibraryViewModel: ObservableObject {
     /// Pre-computed sidebar counts — avoids re-filtering 1,800+ books on every render
     @Published var inProgressCount: Int = 0
     @Published var completedCount: Int = 0
+    @Published var hiddenCount: Int = 0
     @Published var authorCounts: [String: Int] = [:]
     @Published var genreCounts: [String: Int] = [:]
     @Published var yearCounts: [Int32: Int] = [:]
@@ -71,6 +80,7 @@ class LibraryViewModel: ObservableObject {
         case duration = "Duration"
         case recentlyPlayed = "Recently Played"
         case progress = "Progress"
+        case rating = "Rating"
     }
 
     // MARK: - Sidebar Categories
@@ -79,6 +89,7 @@ class LibraryViewModel: ObservableObject {
         case allBooks
         case inProgress
         case completed
+        case hidden
         case smartCollection(SmartCollection)
         case author(String)
         case genre(String)
@@ -404,9 +415,32 @@ class LibraryViewModel: ObservableObject {
         // Clear previous result so the UI doesn't show stale info
         scanResult = nil
 
-        // Cancel any in-progress metadata extraction from a previous scan
+        // Cancel any in-progress metadata extraction or cover lookup from a previous scan
         metadataTask?.cancel()
         metadataTask = nil
+        coverLookupTask?.cancel()
+        coverLookupTask = nil
+
+        // One-time fix: clear covers fetched with title-only search (wrong matches)
+        // and reset their lookup flags so the improved title+author search can retry.
+        // Only clears API-sourced covers (coverLookupAttempted == YES), not embedded ones.
+        if !UserDefaults.standard.bool(forKey: "coverLookupV2Reset") {
+            let resetRequest: NSFetchRequest<Book> = Book.fetchRequest()
+            resetRequest.predicate = NSPredicate(format: "library == %@ AND coverLookupAttempted == YES", library)
+            if let booksToReset = try? persistence.container.viewContext.fetch(resetRequest), !booksToReset.isEmpty {
+                var clearedCovers = 0
+                for book in booksToReset {
+                    if book.coverArtData != nil {
+                        book.coverArtData = nil  // Remove wrong API cover
+                        clearedCovers += 1
+                    }
+                    book.coverLookupAttempted = false  // Allow retry
+                }
+                persistence.save()
+                print("Reset \(booksToReset.count) books for improved lookup (cleared \(clearedCovers) bad covers)")
+            }
+            UserDefaults.standard.set(true, forKey: "coverLookupV2Reset")
+        }
 
         // Fix books incorrectly marked as loaded from previous failed extractions
         // (Google Drive timeouts could return empty metadata that got marked as "done")
@@ -439,7 +473,11 @@ class LibraryViewModel: ObservableObject {
 
         // --- Pass 2: Background metadata extraction ---
         let booksToProcess = filesResult.booksNeedingMetadata
-        guard !booksToProcess.isEmpty else { return }
+        if booksToProcess.isEmpty {
+            // No metadata to extract — skip to Pass 3 (cover lookup)
+            await lookUpMissingCovers()
+            return
+        }
 
         isLoadingMetadata = true
         metadataProgress = 0
@@ -469,6 +507,9 @@ class LibraryViewModel: ObservableObject {
                 skipped: filesResult.skipped
             )
             print("Metadata extraction complete for \(library.displayName)")
+
+            // --- Pass 3: Look up missing covers from Open Library ---
+            await self.lookUpMissingCovers()
         }
     }
 
@@ -485,6 +526,7 @@ class LibraryViewModel: ObservableObject {
             let allBooks = try context.fetch(request)
             for book in allBooks {
                 book.metadataLoaded = false
+                book.coverLookupAttempted = false
             }
             try context.save()
         } catch {
@@ -498,6 +540,75 @@ class LibraryViewModel: ObservableObject {
     private func fallbackFolderURL() -> URL? {
         guard let path = activeLibrary?.folderPath else { return nil }
         return URL(fileURLWithPath: path)
+    }
+
+    // MARK: - Cover Art Lookup (Pass 3)
+
+    /// Searches Open Library for cover art on books that have metadata but no cover image.
+    /// Processes one book at a time with a 1-second delay between requests (rate limiting).
+    func lookUpMissingCovers() async {
+        guard let library = activeLibrary else { return }
+
+        let context = persistence.container.viewContext
+
+        // Find books that need a cover lookup:
+        // - metadata already extracted (so we have title/author)
+        // - no cover art data
+        // - haven't tried the API yet
+        // - have a title to search with
+        let request: NSFetchRequest<Book> = Book.fetchRequest()
+        request.predicate = NSPredicate(
+            format: "library == %@ AND metadataLoaded == YES AND coverArtData == nil AND coverLookupAttempted == NO AND title != nil",
+            library
+        )
+
+        guard let booksToLookUp = try? context.fetch(request), !booksToLookUp.isEmpty else {
+            return
+        }
+
+        isLookingUpCovers = true
+        coverLookupProgress = 0
+        coverLookupTotal = booksToLookUp.count
+
+        print("Cover lookup: \(booksToLookUp.count) books to search")
+
+        coverLookupTask = Task {
+            for (index, book) in booksToLookUp.enumerated() {
+                if Task.isCancelled { break }
+
+                let title = book.title ?? ""
+                let author = book.author
+
+                // Try iTunes → Google Books → Open Library waterfall
+                let coverData = await CoverArtService.fetchCover(title: title, author: author)
+
+                if let coverData = coverData {
+                    book.coverArtData = coverData
+                    print("Found cover for \"\(title)\"")
+                } else {
+                    print("No cover found for \"\(title)\"")
+                }
+
+                // Mark as attempted regardless of result
+                book.coverLookupAttempted = true
+                self.persistence.save()
+
+                // Update progress and reload so covers appear progressively
+                self.coverLookupProgress = index + 1
+                self.loadBooks()
+
+                // Rate limit: 3 seconds between books (up to 6 requests per book across 3 APIs)
+                // iTunes allows 20 req/min, so ~3s spacing keeps us well under
+                if !Task.isCancelled && index < booksToLookUp.count - 1 {
+                    try? await Task.sleep(for: .seconds(3))
+                }
+            }
+
+            self.loadBooks()
+            self.isLookingUpCovers = false
+            self.coverLookupTask = nil
+            print("Cover lookup complete for \(library.displayName)")
+        }
     }
 
     // MARK: - Data Loading
@@ -532,9 +643,11 @@ class LibraryViewModel: ObservableObject {
             var smartCounts: [SmartCollection: Int] = [:]
             var ipCount = 0
             var cCount = 0
+            var hCount = 0
 
             for book in allBooks {
                 // Category counts
+                if book.isHidden { hCount += 1 }
                 if book.isInProgress { ipCount += 1 }
                 if book.isCompleted { cCount += 1 }
 
@@ -567,6 +680,7 @@ class LibraryViewModel: ObservableObject {
             smartCollectionCounts = smartCounts
             inProgressCount = ipCount
             completedCount = cCount
+            hiddenCount = hCount
 
             books = allBooks
         } catch {
@@ -583,19 +697,21 @@ class LibraryViewModel: ObservableObject {
         // Filter by category
         switch selectedCategory {
         case .allBooks:
-            break
+            result = result.filter { !$0.isHidden }
         case .inProgress:
-            result = result.filter { $0.isInProgress }
+            result = result.filter { $0.isInProgress && !$0.isHidden }
         case .completed:
-            result = result.filter { $0.isCompleted }
+            result = result.filter { $0.isCompleted && !$0.isHidden }
+        case .hidden:
+            result = result.filter { $0.isHidden }
         case .smartCollection(let collection):
-            result = result.filter { collection.matches($0) }
+            result = result.filter { collection.matches($0) && !$0.isHidden }
         case .author(let name):
-            result = result.filter { $0.author == name }
+            result = result.filter { $0.author == name && !$0.isHidden }
         case .genre(let name):
-            result = result.filter { $0.genre == name }
+            result = result.filter { $0.genre == name && !$0.isHidden }
         case .year(let yr):
-            result = result.filter { $0.year == yr }
+            result = result.filter { $0.year == yr && !$0.isHidden }
         }
 
         // Filter by search text
@@ -622,6 +738,8 @@ class LibraryViewModel: ObservableObject {
             result.sort { ($0.lastPlayedDate ?? .distantPast) > ($1.lastPlayedDate ?? .distantPast) }
         case .progress:
             result.sort { $0.progress > $1.progress }
+        case .rating:
+            result.sort { $0.rating > $1.rating }
         }
 
         return result
@@ -658,6 +776,79 @@ class LibraryViewModel: ObservableObject {
         book.isStarred.toggle()
         persistence.save()
         loadBooks()  // Recompute sidebar counts so Starred collection appears/disappears
+    }
+
+    /// Toggles a book's hidden status
+    func toggleHidden(_ book: Book) {
+        book.isHidden.toggle()
+        persistence.save()
+        loadBooks()
+    }
+
+    /// Sets a book's rating (0-5, where 0 means unrated).
+    /// Rating a book also marks it as completed.
+    func setRating(_ book: Book, rating: Int16) {
+        book.rating = rating
+        if rating > 0 {
+            book.isCompleted = true
+        }
+        persistence.save()
+        loadBooks()
+    }
+
+    /// Re-extracts metadata from the audio file and retries the cover art lookup
+    /// for a single book. Use when the wrong cover was assigned or metadata is stale.
+    func refreshMetadata(for book: Book) {
+        guard let path = book.filePath else { return }
+        let fileURL = URL(fileURLWithPath: path)
+        let objectID = book.objectID
+
+        Task {
+            // Re-extract metadata from the file (AVFoundation → Spotlight fallback)
+            let metadata = await MetadataExtractor.extractWithTimeout(from: fileURL, timeout: 10)
+
+            guard let metadata = metadata, metadata.duration > 0 else {
+                print("Refresh failed for \"\(book.displayTitle)\" — no metadata returned")
+                return
+            }
+
+            // Update the book on the main context
+            let context = self.persistence.container.viewContext
+            guard let book = try? context.existingObject(with: objectID) as? Book else { return }
+
+            book.title = metadata.title
+            book.author = metadata.author
+            book.genre = metadata.genre
+            book.year = metadata.year
+            book.duration = metadata.duration
+            book.hasChapters = metadata.hasChapters
+            book.metadataLoaded = true
+
+            // If the file itself has embedded cover art, use that
+            if let embeddedCover = metadata.coverArtData {
+                book.coverArtData = embeddedCover
+                book.coverLookupAttempted = true  // No need for API lookup
+            } else {
+                // Clear existing cover and retry from APIs
+                book.coverArtData = nil
+                book.coverLookupAttempted = false
+            }
+
+            self.persistence.save()
+            self.loadBooks()
+
+            // If no embedded cover, try the API waterfall
+            if book.coverArtData == nil, let title = book.title {
+                let coverData = await CoverArtService.fetchCover(title: title, author: book.author)
+                if let coverData = coverData {
+                    book.coverArtData = coverData
+                    print("Refreshed cover for \"\(title)\"")
+                }
+                book.coverLookupAttempted = true
+                self.persistence.save()
+                self.loadBooks()
+            }
+        }
     }
 
     /// Defers objectWillChange to the next run loop tick to avoid

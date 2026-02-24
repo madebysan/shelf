@@ -139,7 +139,7 @@ struct BookCardView: View {
             }
             .buttonStyle(.plain)
             .onHover { hovering in
-                withAnimation(.easeInOut(duration: 0.15)) {
+                withAnimation(AppAnimation.quickToggle) {
                     isHovering = hovering
                 }
             }
@@ -174,6 +174,17 @@ struct BookCardView: View {
                 .foregroundColor(.secondary)
                 .lineLimit(1)
 
+            // Rating stars
+            if book.rating > 0 {
+                HStack(spacing: 2) {
+                    ForEach(1...5, id: \.self) { star in
+                        Image(systemName: star <= Int(book.rating) ? "star.fill" : "star")
+                            .font(.system(size: size == .large ? 10 : 8))
+                            .foregroundColor(star <= Int(book.rating) ? .orange : .secondary.opacity(0.3))
+                    }
+                }
+            }
+
             // Duration
             if book.duration > 0 {
                 Text(book.formattedDuration)
@@ -183,6 +194,7 @@ struct BookCardView: View {
         }
         .frame(width: size.cardWidth, alignment: .topLeading)
         .frame(maxHeight: .infinity, alignment: .top)
+        .contentShape(Rectangle())
         .contextMenu { bookContextMenu }
     }
 
@@ -201,6 +213,34 @@ struct BookCardView: View {
         } label: {
             Label(book.isStarred ? "Remove from Starred" : "Add to Starred",
                   systemImage: book.isStarred ? "star.slash" : "star")
+        }
+
+        Button {
+            libraryVM.toggleHidden(book)
+        } label: {
+            Label(book.isHidden ? "Unhide" : "Hide",
+                  systemImage: book.isHidden ? "eye" : "eye.slash")
+        }
+
+        // Rating submenu
+        Menu {
+            ForEach(0...5, id: \.self) { stars in
+                Button {
+                    libraryVM.setRating(book, rating: Int16(stars))
+                } label: {
+                    HStack {
+                        Text(stars == 0 ? "No Rating" : String(repeating: "\u{2605}", count: stars))
+                        if book.rating == Int16(stars) {
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                }
+            }
+        } label: {
+            Label(
+                book.rating > 0 ? "\(String(repeating: "\u{2605}", count: Int(book.rating)))" : "Rate",
+                systemImage: "star"
+            )
         }
 
         Divider()
@@ -228,6 +268,12 @@ struct BookCardView: View {
         }
 
         Divider()
+
+        Button {
+            libraryVM.refreshMetadata(for: book)
+        } label: {
+            Label("Refresh Metadata", systemImage: "arrow.trianglehead.2.clockwise")
+        }
 
         Button {
             libraryVM.showInFinder(book)
