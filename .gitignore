@@ -14,3 +14,7 @@ xcuserdata/
 
 # Distribution artifacts
 *.dmg
+
+# Local research notes
+*-research.md
+*-Research.md
