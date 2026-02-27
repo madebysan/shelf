@@ -114,6 +114,10 @@ Shelf/
     ViewModifiers.swift         # StaggeredAppear, EmptyStateAppear modifiers
 ```
 
+## Feedback
+
+Found a bug or have a feature idea? [Open an issue](https://github.com/madebysan/shelf-mac/issues).
+
 ## License
 
 MIT
