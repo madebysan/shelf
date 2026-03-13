@@ -114,12 +114,14 @@ Shelf/
     AppAnimation.swift          # Named animation curves (spring, ease)
     AppTransitions.swift        # Reusable composed transitions
     ViewModifiers.swift         # StaggeredAppear, EmptyStateAppear modifiers
-```
-
-## Feedback
+```## Feedback
 
 Found a bug or have a feature idea? [Open an issue](https://github.com/madebysan/shelf-mac/issues).
 
 ## License
 
-MIT
+[MIT](LICENSE)
+
+---
+
+Made by [santiagoalonso.com](https://santiagoalonso.com)
