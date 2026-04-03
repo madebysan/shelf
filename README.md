@@ -54,7 +54,7 @@ Requires Xcode 15+ and macOS 14 (Sonoma) or later.
 
 ```bash
 git clone https://github.com/madebysan/shelf-mac.git
-cd shelf
+cd shelf-mac
 open Shelf.xcodeproj
 ```
 
