@@ -1,0 +1,33 @@
+name: ShelfIOS
+options:
+  bundleIdPrefix: com.madebysan
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "16.0"
+  generateEmptyDirectories: true
+
+packages:
+  GoogleSignIn:
+    url: https://github.com/google/GoogleSignIn-iOS
+    from: "8.0.0"
+
+targets:
+  ShelfIOS:
+    type: application
+    platform: iOS
+    sources:
+      - ShelfIOS
+    settings:
+      base:
+        INFOPLIST_FILE: ShelfIOS/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        CODE_SIGN_ENTITLEMENTS: ShelfIOS/ShelfIOS.entitlements
+        PRODUCT_BUNDLE_IDENTIFIER: com.madebysan.ShelfIOS
+        DEVELOPMENT_TEAM: QAMM2A6WRQ
+        SWIFT_VERSION: "5.9"
+        TARGETED_DEVICE_FAMILY: "1"
+    dependencies:
+      - package: GoogleSignIn
+        product: GoogleSignIn
+      - package: GoogleSignIn
+        product: GoogleSignInSwift

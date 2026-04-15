@@ -1,0 +1,535 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		13DD9783DAAAE7F89D100CD7 /* CoverArtService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AC51B04DEE6376CC7236D0 /* CoverArtService.swift */; };
+		1B2877A667965F4D73A53566 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA03272DDAF18457B12D3FA /* SignInView.swift */; };
+		2FB7EE6D9F4C290419D53D85 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1A2210867FEEB0365B1969 /* DownloadManager.swift */; };
+		37DFA37C4B9459C8BA4AF801 /* VideoLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7972B7852AC484C467B7F497 /* VideoLayerView.swift */; };
+		39AFD31BEA21EBA6A3096A66 /* ShelfIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E9B02CBD962CE4217FDFBB /* ShelfIOSApp.swift */; };
+		39BC8D5A6D8F857C0C9CC10E /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE12A0D5C86EFA62BB30EA8B /* LibraryViewModel.swift */; };
+		40A6C07FFC1646307B9C640C /* AudiobookModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E04E8F42D2E99F831B90D158 /* AudiobookModel.xcdatamodeld */; };
+		40E63AD467C415C98B1C2C54 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880DD25C47579163286CBD8A /* PlayerView.swift */; };
+		4BD13F0146F91459A13636E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD9B664A5DA5B4631D194AD /* AppDelegate.swift */; };
+		4C213E25CBAD34264277C4B4 /* NowPlayingBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7389D02E136305B1DF1FCCDF /* NowPlayingBar.swift */; };
+		5423B2FD458608C60E28DE47 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CD05478B6C50E62D5D87AE /* SettingsView.swift */; };
+		583A5BB7C0A49A2A0AB4915D /* Library+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0390A2D8D258D9D0B118E2F2 /* Library+Extensions.swift */; };
+		68391C584FC5AD6715CCBCE3 /* FolderPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE21921522EA87650B66957 /* FolderPickerView.swift */; };
+		6F6F422EE91CE07B7A222784 /* GoogleDriveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB4D33520CD30967C79441D /* GoogleDriveService.swift */; };
+		72F6AA1EB88A8330310E5ACD /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A9345A8992202B7CCC01BD /* PlayerViewModel.swift */; };
+		7634F28E1C1C3F74A6DF52E3 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634AF255440141E64F00B85F /* ViewModifiers.swift */; };
+		7A63DD72FCDEA6AE9AA8E964 /* Bookmark+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364E0926878081F2134854ED /* Bookmark+Extensions.swift */; };
+		8125E2F3F6C76B2712D49552 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = FC14416FB236CCE059897D2D /* GoogleSignIn */; };
+		84B37DD25EA23E7B048EE320 /* ProgressExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F469BCCCB00700305C8EAE85 /* ProgressExporter.swift */; };
+		89AA0AC381A3A7760950F5A9 /* GenreBrowseSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26FBBD7BA44EB9E8410128B /* GenreBrowseSheet.swift */; };
+		A4AD2EEF130539A331EB2FEF /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271B2DF7B56A580FC1B4B4AC /* RootView.swift */; };
+		AA20ABD4C45DD0002FAA3092 /* GoogleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5AD42A2BBA04AE1462FE23 /* GoogleAuthService.swift */; };
+		AE5D39C04370C09AEA263002 /* AudioPlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E0DF3C25B8FAB8353F4CB9 /* AudioPlayerService.swift */; };
+		AF7D7F3722BA00C13FA8C0E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D2C30AB80479AEB759242F4 /* Assets.xcassets */; };
+		B318B1959910E931B726BFD5 /* BookRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5421359E4EDA3D8EAAB74BA9 /* BookRowView.swift */; };
+		B7E8AAD1E2C3552325B08472 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7EE9D93AD6D0F404C7B26 /* LibraryView.swift */; };
+		B879FD7B4111670DCBEDEB8C /* Book+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9912C4CD585E3E10EB40C21 /* Book+Extensions.swift */; };
+		BE6203E53E41CD66C13F271E /* GenreCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0EEA152B7D4FE9C61121B1 /* GenreCardView.swift */; };
+		C1F39D8341DA93A6EA1652BB /* MetadataExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03159634945EB46885293094 /* MetadataExtractor.swift */; };
+		D1B1752FFF42CF4B1FC052FA /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A0FB3ABB3CD425BDF4E382 /* AppViewModel.swift */; };
+		DD46AFC619B5079941E38C06 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392E7872609876429E2F0436 /* PersistenceController.swift */; };
+		E2ED917558C3A723B5AD317E /* BookGridCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9D1AC737BD17EE98B89B7D /* BookGridCardView.swift */; };
+		E4649ED259F2B5776106E866 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDED18B1876DDAE51CD9E495 /* AppColors.swift */; };
+		E6C8204777CCAC72038B7B1E /* AppAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E776AD6D6D76C2718B922 /* AppAnimation.swift */; };
+		F3BC6AE07A8CABD6DA8D81FC /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E7275788F77AE254BB7A50A7 /* GoogleSignInSwift */; };
+		FBB5A71755C2561166E1E476 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EE2177D04BFF26AE03848C /* VideoPlayerView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		03159634945EB46885293094 /* MetadataExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataExtractor.swift; sourceTree = "<group>"; };
+		0390A2D8D258D9D0B118E2F2 /* Library+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Library+Extensions.swift"; sourceTree = "<group>"; };
+		08F7EE9D93AD6D0F404C7B26 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		0B1A2210867FEEB0365B1969 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
+		1BA03272DDAF18457B12D3FA /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		271B2DF7B56A580FC1B4B4AC /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		284DCA6C5B3F19D02822F616 /* ShelfIOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ShelfIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		364E0926878081F2134854ED /* Bookmark+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bookmark+Extensions.swift"; sourceTree = "<group>"; };
+		392E7872609876429E2F0436 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		3BD9B664A5DA5B4631D194AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		48A9345A8992202B7CCC01BD /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
+		4CE21921522EA87650B66957 /* FolderPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderPickerView.swift; sourceTree = "<group>"; };
+		5421359E4EDA3D8EAAB74BA9 /* BookRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRowView.swift; sourceTree = "<group>"; };
+		57C2D9F1B2583D0B8898454A /* AudiobookModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AudiobookModel.xcdatamodel; sourceTree = "<group>"; };
+		634AF255440141E64F00B85F /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
+		64AC51B04DEE6376CC7236D0 /* CoverArtService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverArtService.swift; sourceTree = "<group>"; };
+		6F5AD42A2BBA04AE1462FE23 /* GoogleAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthService.swift; sourceTree = "<group>"; };
+		70CD05478B6C50E62D5D87AE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		72E9B02CBD962CE4217FDFBB /* ShelfIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfIOSApp.swift; sourceTree = "<group>"; };
+		7389D02E136305B1DF1FCCDF /* NowPlayingBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingBar.swift; sourceTree = "<group>"; };
+		7972B7852AC484C467B7F497 /* VideoLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoLayerView.swift; sourceTree = "<group>"; };
+		880DD25C47579163286CBD8A /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		8D2C30AB80479AEB759242F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		95E0DF3C25B8FAB8353F4CB9 /* AudioPlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerService.swift; sourceTree = "<group>"; };
+		A26FBBD7BA44EB9E8410128B /* GenreBrowseSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreBrowseSheet.swift; sourceTree = "<group>"; };
+		A2EE2177D04BFF26AE03848C /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		AE0EEA152B7D4FE9C61121B1 /* GenreCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreCardView.swift; sourceTree = "<group>"; };
+		AE12A0D5C86EFA62BB30EA8B /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
+		B1B6C66FD91F8672F88E1FFA /* ShelfIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShelfIOS.entitlements; sourceTree = "<group>"; };
+		B5A0FB3ABB3CD425BDF4E382 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		B9912C4CD585E3E10EB40C21 /* Book+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+Extensions.swift"; sourceTree = "<group>"; };
+		BC9E776AD6D6D76C2718B922 /* AppAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAnimation.swift; sourceTree = "<group>"; };
+		BE9D1AC737BD17EE98B89B7D /* BookGridCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookGridCardView.swift; sourceTree = "<group>"; };
+		CFB4D33520CD30967C79441D /* GoogleDriveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveService.swift; sourceTree = "<group>"; };
+		DDED18B1876DDAE51CD9E495 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		F469BCCCB00700305C8EAE85 /* ProgressExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressExporter.swift; sourceTree = "<group>"; };
+		F8794D0C22562AA8EC166265 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5E5364DDF0AAFEEB57DB2A8D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8125E2F3F6C76B2712D49552 /* GoogleSignIn in Frameworks */,
+				F3BC6AE07A8CABD6DA8D81FC /* GoogleSignInSwift in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0CADDC7A531E695054EFD8BD = {
+			isa = PBXGroup;
+			children = (
+				A8162FCBBD8B5F8890873092 /* ShelfIOS */,
+				2C32A3935880DB23FED9B32E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0E0B62293C77FCE454CC7B43 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				95E0DF3C25B8FAB8353F4CB9 /* AudioPlayerService.swift */,
+				64AC51B04DEE6376CC7236D0 /* CoverArtService.swift */,
+				0B1A2210867FEEB0365B1969 /* DownloadManager.swift */,
+				6F5AD42A2BBA04AE1462FE23 /* GoogleAuthService.swift */,
+				CFB4D33520CD30967C79441D /* GoogleDriveService.swift */,
+				03159634945EB46885293094 /* MetadataExtractor.swift */,
+				392E7872609876429E2F0436 /* PersistenceController.swift */,
+				F469BCCCB00700305C8EAE85 /* ProgressExporter.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		2C32A3935880DB23FED9B32E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				284DCA6C5B3F19D02822F616 /* ShelfIOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4E297C717531BC7023BE91EF /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B5A0FB3ABB3CD425BDF4E382 /* AppViewModel.swift */,
+				AE12A0D5C86EFA62BB30EA8B /* LibraryViewModel.swift */,
+				48A9345A8992202B7CCC01BD /* PlayerViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		8D8569FE9DBD477F32F7EAFA /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				BC9E776AD6D6D76C2718B922 /* AppAnimation.swift */,
+				DDED18B1876DDAE51CD9E495 /* AppColors.swift */,
+				634AF255440141E64F00B85F /* ViewModifiers.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		A8162FCBBD8B5F8890873092 /* ShelfIOS */ = {
+			isa = PBXGroup;
+			children = (
+				3BD9B664A5DA5B4631D194AD /* AppDelegate.swift */,
+				8D2C30AB80479AEB759242F4 /* Assets.xcassets */,
+				F8794D0C22562AA8EC166265 /* Info.plist */,
+				B1B6C66FD91F8672F88E1FFA /* ShelfIOS.entitlements */,
+				72E9B02CBD962CE4217FDFBB /* ShelfIOSApp.swift */,
+				DC281D72893430DDCCB89824 /* Models */,
+				0E0B62293C77FCE454CC7B43 /* Services */,
+				8D8569FE9DBD477F32F7EAFA /* Utilities */,
+				4E297C717531BC7023BE91EF /* ViewModels */,
+				C048AA8B9F1FA31FEDDBCA07 /* Views */,
+			);
+			path = ShelfIOS;
+			sourceTree = "<group>";
+		};
+		C048AA8B9F1FA31FEDDBCA07 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BE9D1AC737BD17EE98B89B7D /* BookGridCardView.swift */,
+				5421359E4EDA3D8EAAB74BA9 /* BookRowView.swift */,
+				4CE21921522EA87650B66957 /* FolderPickerView.swift */,
+				A26FBBD7BA44EB9E8410128B /* GenreBrowseSheet.swift */,
+				AE0EEA152B7D4FE9C61121B1 /* GenreCardView.swift */,
+				08F7EE9D93AD6D0F404C7B26 /* LibraryView.swift */,
+				7389D02E136305B1DF1FCCDF /* NowPlayingBar.swift */,
+				880DD25C47579163286CBD8A /* PlayerView.swift */,
+				271B2DF7B56A580FC1B4B4AC /* RootView.swift */,
+				70CD05478B6C50E62D5D87AE /* SettingsView.swift */,
+				1BA03272DDAF18457B12D3FA /* SignInView.swift */,
+				7972B7852AC484C467B7F497 /* VideoLayerView.swift */,
+				A2EE2177D04BFF26AE03848C /* VideoPlayerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DC281D72893430DDCCB89824 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E04E8F42D2E99F831B90D158 /* AudiobookModel.xcdatamodeld */,
+				B9912C4CD585E3E10EB40C21 /* Book+Extensions.swift */,
+				364E0926878081F2134854ED /* Bookmark+Extensions.swift */,
+				0390A2D8D258D9D0B118E2F2 /* Library+Extensions.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		32406C6312D2D7100B4CC8D4 /* ShelfIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C06FE1A287A5A770F4F101DF /* Build configuration list for PBXNativeTarget "ShelfIOS" */;
+			buildPhases = (
+				6D9B8BCE5F041DF35A2E64F4 /* Sources */,
+				6CA426945C89E671B6FB5EE2 /* Resources */,
+				5E5364DDF0AAFEEB57DB2A8D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShelfIOS;
+			packageProductDependencies = (
+				FC14416FB236CCE059897D2D /* GoogleSignIn */,
+				E7275788F77AE254BB7A50A7 /* GoogleSignInSwift */,
+			);
+			productName = ShelfIOS;
+			productReference = 284DCA6C5B3F19D02822F616 /* ShelfIOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		88A35D5926AF7C3AD48315CA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					32406C6312D2D7100B4CC8D4 = {
+						DevelopmentTeam = QAMM2A6WRQ;
+					};
+				};
+			};
+			buildConfigurationList = 8889B0710255F179B9637E70 /* Build configuration list for PBXProject "ShelfIOS" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 0CADDC7A531E695054EFD8BD;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F34512FD93AD93C0DB50D9DD /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				32406C6312D2D7100B4CC8D4 /* ShelfIOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6CA426945C89E671B6FB5EE2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF7D7F3722BA00C13FA8C0E6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6D9B8BCE5F041DF35A2E64F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6C8204777CCAC72038B7B1E /* AppAnimation.swift in Sources */,
+				E4649ED259F2B5776106E866 /* AppColors.swift in Sources */,
+				4BD13F0146F91459A13636E1 /* AppDelegate.swift in Sources */,
+				D1B1752FFF42CF4B1FC052FA /* AppViewModel.swift in Sources */,
+				AE5D39C04370C09AEA263002 /* AudioPlayerService.swift in Sources */,
+				40A6C07FFC1646307B9C640C /* AudiobookModel.xcdatamodeld in Sources */,
+				B879FD7B4111670DCBEDEB8C /* Book+Extensions.swift in Sources */,
+				E2ED917558C3A723B5AD317E /* BookGridCardView.swift in Sources */,
+				B318B1959910E931B726BFD5 /* BookRowView.swift in Sources */,
+				7A63DD72FCDEA6AE9AA8E964 /* Bookmark+Extensions.swift in Sources */,
+				13DD9783DAAAE7F89D100CD7 /* CoverArtService.swift in Sources */,
+				2FB7EE6D9F4C290419D53D85 /* DownloadManager.swift in Sources */,
+				68391C584FC5AD6715CCBCE3 /* FolderPickerView.swift in Sources */,
+				89AA0AC381A3A7760950F5A9 /* GenreBrowseSheet.swift in Sources */,
+				BE6203E53E41CD66C13F271E /* GenreCardView.swift in Sources */,
+				AA20ABD4C45DD0002FAA3092 /* GoogleAuthService.swift in Sources */,
+				6F6F422EE91CE07B7A222784 /* GoogleDriveService.swift in Sources */,
+				583A5BB7C0A49A2A0AB4915D /* Library+Extensions.swift in Sources */,
+				B7E8AAD1E2C3552325B08472 /* LibraryView.swift in Sources */,
+				39BC8D5A6D8F857C0C9CC10E /* LibraryViewModel.swift in Sources */,
+				C1F39D8341DA93A6EA1652BB /* MetadataExtractor.swift in Sources */,
+				4C213E25CBAD34264277C4B4 /* NowPlayingBar.swift in Sources */,
+				DD46AFC619B5079941E38C06 /* PersistenceController.swift in Sources */,
+				40E63AD467C415C98B1C2C54 /* PlayerView.swift in Sources */,
+				72F6AA1EB88A8330310E5ACD /* PlayerViewModel.swift in Sources */,
+				84B37DD25EA23E7B048EE320 /* ProgressExporter.swift in Sources */,
+				A4AD2EEF130539A331EB2FEF /* RootView.swift in Sources */,
+				5423B2FD458608C60E28DE47 /* SettingsView.swift in Sources */,
+				39AFD31BEA21EBA6A3096A66 /* ShelfIOSApp.swift in Sources */,
+				1B2877A667965F4D73A53566 /* SignInView.swift in Sources */,
+				37DFA37C4B9459C8BA4AF801 /* VideoLayerView.swift in Sources */,
+				FBB5A71755C2561166E1E476 /* VideoPlayerView.swift in Sources */,
+				7634F28E1C1C3F74A6DF52E3 /* ViewModifiers.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		041A014453C4E084A08B4C51 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		81AF131BDDD4C6917EEA50B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ShelfIOS/ShelfIOS.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = QAMM2A6WRQ;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ShelfIOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.madebysan.ShelfIOS;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		ABE9C9A3B10A7755090E4933 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ShelfIOS/ShelfIOS.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = QAMM2A6WRQ;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ShelfIOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.madebysan.ShelfIOS;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		D7687F2CF3475A70798AF8FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8889B0710255F179B9637E70 /* Build configuration list for PBXProject "ShelfIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				041A014453C4E084A08B4C51 /* Debug */,
+				D7687F2CF3475A70798AF8FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C06FE1A287A5A770F4F101DF /* Build configuration list for PBXNativeTarget "ShelfIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				81AF131BDDD4C6917EEA50B2 /* Debug */,
+				ABE9C9A3B10A7755090E4933 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F34512FD93AD93C0DB50D9DD /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E7275788F77AE254BB7A50A7 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F34512FD93AD93C0DB50D9DD /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+		FC14416FB236CCE059897D2D /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F34512FD93AD93C0DB50D9DD /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		E04E8F42D2E99F831B90D158 /* AudiobookModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				57C2D9F1B2583D0B8898454A /* AudiobookModel.xcdatamodel */,
+			);
+			currentVersion = 57C2D9F1B2583D0B8898454A /* AudiobookModel.xcdatamodel */;
+			path = AudiobookModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 88A35D5926AF7C3AD48315CA /* Project object */;
+}
