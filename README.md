@@ -12,9 +12,11 @@
 ---
 
 <p align="center">
-  <img src="macos/shelf-screenshot.png" width="520" alt="Shelf on macOS">
-  &nbsp;
-  <img src="ios/assets/screenshot.png" width="220" alt="Shelf on iOS">
+  <img src="macos/shelf-screenshot.png" width="100%" alt="Shelf on macOS">
+</p>
+
+<p align="center">
+  <img src="ios/assets/screenshot.png" width="100%" alt="Shelf on iOS">
 </p>
 
 <!-- TODO: add android/ screenshot + video demos for macOS and iOS. -->
