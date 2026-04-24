@@ -12,10 +12,12 @@
 ---
 
 <p align="center">
-  <img src="macos/shelf-screenshot.png" width="600" alt="Shelf audiobook library view on macOS">
+  <img src="macos/shelf-screenshot.png" width="520" alt="Shelf on macOS">
+  &nbsp;
+  <img src="ios/assets/screenshot.png" width="220" alt="Shelf on iOS">
 </p>
 
-<!-- TODO: add ios/ and android/ screenshots. Multi-platform repo with only macOS shown is a credibility hit. -->
+<!-- TODO: add android/ screenshot + video demos for macOS and iOS. -->
 
 ---
 
