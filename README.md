@@ -19,8 +19,6 @@
   <img src="ios/assets/screenshot.png" width="100%" alt="Shelf on iOS">
 </p>
 
-<!-- TODO: add android/ screenshot + video demos for macOS and iOS. -->
-
 ---
 
 Shelf is a cross-platform audiobook player that reads from your Google Drive. Stream or download, pick up on any device where you left off on another. Ships on macOS, iOS, and Android.
