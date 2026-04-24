@@ -1,3 +1,4 @@
+
 <p align="center">
   <img src="macos/assets/app-icon.png" width="128" height="128" alt="Shelf app icon">
 </p>
@@ -11,21 +12,25 @@
 ---
 
 <p align="center">
-  <img src="macos/shelf-screenshot.png" width="600" alt="Shelf — audiobook library view on macOS">
+  <img src="macos/shelf-screenshot.png" width="600" alt="Shelf audiobook library view on macOS">
 </p>
+
+<!-- TODO: add ios/ and android/ screenshots. Multi-platform repo with only macOS shown is a credibility hit. -->
+
+---
+
+Shelf is a cross-platform audiobook and video player that reads from your Google Drive. Stream or download, pick up on any device where you left off on another. Ships on macOS, iOS, and Android.
 
 ## Features
 
-- **Google Drive sync** — point Shelf at a Drive folder and your library loads automatically
-- **Stream or download** — play directly from Drive or save for offline listening
-- **Audio + video** — plays audiobooks (m4b, m4a, mp3, flac) and video files (mp4, mov, mkv)
-- **Background playback** — keep listening with the screen off or the app in the background
-- **Chapters, bookmarks, sleep timer** — navigate long-form content with precision
-- **Playback speed** — 0.5x to 2.0x, persisted across sessions
-- **Cover art lookup** — searches iTunes, Google Books, and Open Library automatically
-- **Library organization** — filter, sort, search, star, hide, rate, and browse by genre
-- **Discover mode** — plays a random book from a random position
-- **Progress export/import** — JSON backup compatible across platforms
+- **Google Drive sync.** Point Shelf at a Drive folder and your library loads automatically.
+- **Stream or download.** Directly from Drive, or saved locally for offline.
+- Plays audiobooks (m4b, m4a, mp3, flac) and video (mp4, mov, mkv).
+- Keeps playing with the screen off or the app in the background.
+- Chapters, bookmarks, sleep timer, and 0.5x–2.0x playback speed. All persisted.
+- Cover art lookup across iTunes, Google Books, and Open Library.
+- Filter, sort, search, star, hide, rate, or browse by genre.
+- **Discover mode** plays a random book from a random position. **Progress export/import** is JSON and compatible across platforms.
 
 ## Platforms
 
@@ -52,7 +57,7 @@ Native macOS app with mini player, multiple libraries, sidebar navigation, and k
 
 ### iOS
 
-iPhone app with background playback, lock screen controls, fullscreen video with PiP and AirPlay, and video thumbnail extraction. Requires iOS 17+.
+iPhone app with background playback, lock-screen controls, fullscreen video with PiP and AirPlay, and video-thumbnail extraction. Requires iOS 17+.
 
 Swift + SwiftUI + AVKit
 
@@ -62,7 +67,7 @@ Material Design 3 app with streaming playback, offline downloads, background ser
 
 Kotlin + Jetpack Compose + Media3
 
-## Project Structure
+## Project structure
 
 ```
 shelf/
@@ -91,7 +96,7 @@ cd android
 # Open in Android Studio, add google-services.json to app/
 ```
 
-## Supported Formats
+## Supported formats
 
 **Audio:** m4b, m4a, mp3, flac
 
@@ -99,7 +104,7 @@ cd android
 
 ## Free audio to get started
 
-[Open Culture](https://www.openculture.com/freeaudiobooks) maintains a curated list of 1,000+ free audiobooks — classics from Twain, Orwell, Austen, and more. Download the MP3s, point Shelf at the folder, and start listening.
+[Open Culture](https://www.openculture.com/freeaudiobooks) maintains a curated list of 1,000+ free audiobooks. Classics from Twain, Orwell, Austen, and more. Download the MP3s, point Shelf at the folder, and start listening.
 
 ## License
 
