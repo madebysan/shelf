@@ -5,7 +5,7 @@
 
 <h1 align="center">Shelf</h1>
 
-<p align="center">An audiobook and video player that syncs with Google Drive.<br>Stream or download. Pick up where you left off.</p>
+<p align="center">An audiobook player that syncs with Google Drive.<br>Stream or download. Pick up where you left off.</p>
 
 <p align="center"><strong>macOS</strong> · <strong>iOS</strong> · <strong>Android</strong></p>
 
@@ -23,13 +23,13 @@
 
 ---
 
-Shelf is a cross-platform audiobook and video player that reads from your Google Drive. Stream or download, pick up on any device where you left off on another. Ships on macOS, iOS, and Android.
+Shelf is a cross-platform audiobook player that reads from your Google Drive. Stream or download, pick up on any device where you left off on another. Ships on macOS, iOS, and Android.
 
 ## Features
 
 - **Google Drive sync.** Point Shelf at a Drive folder and your library loads automatically.
 - **Stream or download.** Directly from Drive, or saved locally for offline.
-- Plays audiobooks (m4b, m4a, mp3, flac) and video (mp4, mov, mkv).
+- Plays audiobooks (m4b, m4a, mp3, flac). Video files (mp4, mov, mkv) work too.
 - Keeps playing with the screen off or the app in the background.
 - Chapters, bookmarks, sleep timer, and 0.5x–2.0x playback speed. All persisted.
 - Cover art lookup across iTunes, Google Books, and Open Library.
